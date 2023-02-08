@@ -13,7 +13,7 @@
 
 ## 목차
 
-1. [What is a Redis?](#what-is-a-redis?)
+1. [What is a Redis?](##what-is-a-redis?)
 2. [Redis를 활용한 Token 기반 로그인/로그아웃 구현](redis를-활용한-token-기반-로그인/로그아웃-구현)
 3. [캐시서버로서의 Redis](캐시서버로서의-redis)
 4. [캐시 서버 구현하기](캐시-서버-구현하기)
