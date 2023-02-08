@@ -118,7 +118,7 @@ public class Place extends BaseTime implements Serializable {
 
 
 
-### BatchClass 사용
+### BatchSize 사용
 
 ![MultipleBagFetchException](/img/MultipleBagFetchException.png)
 
