@@ -19,8 +19,8 @@
 4. [캐시 서버 구현하기](#캐시-서버-구현하기)
 5. [Redis 회고](#redis-회고)
 ***
-
-
+<br></br>
+<br></br>
 
 
 
@@ -36,7 +36,7 @@
 * 메모리 기반이지만 메모리에 있는 데이터를 디스크에 저장하는 방식을 통해 영속적인 데이터 보존이 가능하다.(Redis Persistence)
   * 데이터를 저장하는 방식에는 RDB(snapshotting), AOF(Append only file) 두가지가 있다.
 * 싱글 스레드를 지원하므로 안정적인 인프라 구축을 위해 Replication(Master-Slave 구조)를 사용한다.
-
+<br></br>
 
 
 ### Redis VS Memcached
@@ -73,7 +73,8 @@
   * Redis의 장점이 명확했기 때문에 결론을 빠르게 도출할 수 있었다.
     * Main027 프로젝트 수준에서는 Memcached의 유일한 장점이라고 할 수 있는 멀티 스레드를 쓸 필요가 없었다.
     * 트래픽이 멀티 스레드를 써야할 만큼 발생하지 않기 때문에 멀티 스레드를 제외한 대부분의 기능에서 보다 좋은 성능을 가지고 있는 Redis를 사용하기로 결정했다.
-
+<br></br>
+<br></br>
 
 
 ## Main027에서 Redis가 하는 일
@@ -96,7 +97,7 @@
   * ReviewController - getReviews
   * PlaceController - getplace
   * PlaceController - getPlaces
-
+<br></br>
 
 
 ### AccessToken과 RefreshToken 짚고 넘어가기
@@ -154,8 +155,8 @@
 1. 요청마다 헤더에 AccessToken이 포함되는지 RefreshToken이 포함되는지 헷갈리니 그냥 모든 요청에 AccessToken과 RefreshToken을 다 보내면 안되나?
 
 * 모든 요청에 RefreshToken을 보내면 Redis를 쓸 필요가 없다.(DB에서 토큰을 관리할 필요가 없다) 대신 RefreshToken을 매번 클라이언트에게 받아서 필요할 때 AccessToken을 재발급하게 된다. 이는 DB를 사용하지 않기 때문에 성능이 향상되는 장점이 있지만, RefreshToken이 외부에 지속적으로 노출이 되기 때문에 보안에 매우 치명적이다. 다르게 이야기하면 성능을 위해 보안을 포기한 것과 같기 때문에 권장하지 않는다.
-
-
+<br></br>
+<br></br>
 
 
 
@@ -238,8 +239,8 @@ public class RedisService {
   * value : 이메일
   * expirationMinutes : 만료 기한(다 되면 자동으로 삭제)
 * `deleteRefreshToken` : RefreshToken 삭제
-
-
+<br></br>
+<br></br>
 
 
 
@@ -273,8 +274,8 @@ public class RedisService {
     * **It could leverage several efficient low-level data structures without worrying about how to persist then to disk efficiently - linked list skip list and hash table are some examples.**
       * 레디스는 키밸류 쌍을 그대로 저장한다. 그래서 키값만 알면 시간복잡도를 n(1)에 액세스 할 수 있다. 그저 객체화 된 로우 레벨의 데이터구조이자 인메모리이기 때문에 퍼포먼스가 잘 나온다.
       * 그러나 일반 DB의 경우 데이터를 디스크에 저장하기 때문에 디스크의 어디에 저장이 되어있는지 찾아야하고 그걸 꺼내오기 위한 i/o 연산을 빠르게 하기 위해서 복잡한 자료구조가 불가피해 상대적으로 느리다.
-
-
+<br></br>
+<br></br>
 
 
 
@@ -327,7 +328,8 @@ public class RedisConfiguration {
 * `serializeKeysWith(...)`: Key에 대한 직렬화 설정
 * `serializeValuesWith(...)`: Value에 대한 직렬화 설정
 * `entryTtl(Duration.ofMinutes(30))`: 캐시 저장 기간 설정(30분)
-
+<br></br>
+<br></br>
 
 
 #### 에러 해결 과정
@@ -386,7 +388,8 @@ public ObjectMapper objectMapper() {
   * 안타깝지만 이 부분은 어떻게 해결된건지 정확히 모른다. 아마도 불러온 Value 값을 LinkedHashmap이 아닌 객체로 인식하는 것 같다.
   * 매핑작업을 통해 직렬화와 역직렬화 시 객체로 읽어 들이게(?) 하는 작업을 통해서 해결할 수 있었다.
 * 이렇게 RedisConfiguration을 구성하니 더이상 오류는 나타나지 않았다.
-
+<br></br>
+<br></br>
 
 
 ### 캐시 애너테이션
@@ -431,8 +434,8 @@ public ObjectMapper objectMapper() {
 * main027에서는 @CachePut을 사용하지 않고 @CacheEvict를 사용했음
   * 캐시 데이터에 변경, 삭제 등의 이슈가 있을 때는 관련 캐시 데이터를 전부 삭제하는 방식을 택함
     * 아직 캐시 관련해서 학습이 부족하다고 판단하여 짧은 프로젝트 기간에 에러를 최대한 줄이기 위해서 전부 삭제하도록 구성했다.
-
-
+<br></br>
+<br></br>
 
 
 
