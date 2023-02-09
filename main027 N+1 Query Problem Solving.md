@@ -165,7 +165,7 @@ private Set<Bookmark> bookmarkList = new HashSet<>();
 
 
 
-![default batch size](/img/default-batch-size.png)
+![default batch size](/img/Default batch size.png)
 
 * 이번애는 `category` 필드는 사라졌지만 나머지는 3번씩 나갔다. 도저히 이해가 가지 않아 일단 멈추었다. 원인을 찾아보고 싶었지만 시간이 촉박했기 때문에 @EntityGraph를 사용해보기로 했다.
 
