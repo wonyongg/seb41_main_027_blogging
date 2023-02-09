@@ -72,8 +72,8 @@
   -> ```memberRepository.save(member)```로 DB에 저장
 
 * 회원가입 완료
-<br>
-<br>
+<br></br>
+<br></br>
 
 
 
@@ -210,8 +210,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 * `JwtAuthenticationFilter`의 `successfulAuthentication` 메서드에서 **AccessToken**, **RefreshToken**을 발급하고 **responseHeader**에 넣음
 * **RefreshToken**은 **Redis**에 따로 저장
 * 성공 시에 `getSuccessHandler` 호출
-<br>
-<br>
+<br></br>
+<br></br>
 
 
 
@@ -324,8 +324,8 @@ public class MemberAuthenticationFailureHandler implements AuthenticationFailure
     * `loadUserByUsername`에서 던진 에러를 잡아 새롭게 `InternalAuthenticationServiceException` 에러를 던지기 때문에 `MemberAuthenticationFailureHandler`의 `else if (exception.getClass().equals(InternalAuthenticationServiceException.class))`에서 에러가 걸리는 것이고, 파라미터값은 기존의 `ExceptionCode.UNREGISTERED_MEMBER`가 들어가 "Unregistered Member"라고 출력되는 것이었다.
 
 * 그 외 : ``` else ``` 이 외에 다른 에러는 권한 없음으로 처리.
-<br>
-<br>
+<br></br>
+<br></br>
 
 
 
@@ -430,8 +430,8 @@ private Map<String, Object> verifyJws(HttpServletRequest request) {
 
 * `shouldNotFilter`는 return 문이 true일 경우 해당 필터를 수행하지 않고 다음 필터로 넘어가게 하는 역할을 함
 * 검증 작업에서는 요청 헤더에 **AccessToken**이 없거나(== null), **RefreshToken**이 들어온 경우(Bearer로 시작하지 않는 Token) true가 되어 `JwtVerificationFilter`가 수행되지 않음
-<br>
-<br>
+<br></br>
+<br></br>
 
 
 
@@ -517,8 +517,8 @@ catch (TokenException e) {
 ```
 
 * **RefreshToken**이 null이거나, uri가 "/reissue"가 아니거나, 메서드 요청이 POST가 아니라면 필터를 수행하지 않고 다음 필터로 넘어감
-<br>
-<br>
+<br></br>
+<br></br>
 
 
 ## JWT 로그아웃 구현
