@@ -47,7 +47,7 @@
   * 문법적으로 사용하기 쉬우며 개발에 필요한 코드 양도 적다.
   * 파티셔닝, 샤딩 등을 통해 데이터의 분산 저장이 가능하다.
   * Java, Python, C, JavaScript 등 다양한 프로그래밍 언어를 지원한다.
-
+<br></br>
 
 
 * **Memcached의 특징**
@@ -56,7 +56,7 @@
   * String 타입으로 저장한다.
   * 데이터 복제가 불가능하다.
   * 데이터를 저장할 수 없기 때문에 캐시서버로 밖에 활용할 수 없다.
-
+<br></br>
 
 
 * **Memcahced와 비교했을 때 레디스의 장점**
@@ -65,7 +65,7 @@
   * 하나의 Key에 저장할 수 있는 Value의 크기가 크다.
   * Master - Slave 구조를 이용하여 클러스터를 만들 수 있다.
   * 디스크에 데이터를 기록하기 때문에 데이터 복구가 가능하다.
-
+<br></br>
 
 
 * **왜 Redis를 썼는가?**
@@ -98,7 +98,7 @@
   * PlaceController - getplace
   * PlaceController - getPlaces
 <br></br>
-
+<br></br>
 
 ### AccessToken과 RefreshToken 짚고 넘어가기
 
@@ -108,6 +108,7 @@
 * 접근 권한이 필요한 요청 시 자격 증명으로 사용
 * 만료 기한이 있음
 * 서버에서 관리를 하지 않음
+<br></br>
 
 #### RefreshToken
 
@@ -116,7 +117,7 @@
 * 만료 기한이 있음(AccessToken보다 길게 설정함)
 * 서버 DB에서 관리함
 * 메인프로젝트에서는 일반적인 DB 대신에 인메모리 DB인 Redis를 사용
-
+<br></br>
 
 
 ### 흐름
@@ -131,7 +132,7 @@
 4. 로그아웃을 할 때는 AccessToken과 RefreshToken을 둘 다 요청 헤더에 담아 보낸다.
 
 * 요청 헤더의 AccessToken은 BlackList에 넣는 용도로, RefreshToken은 redis에 저장된 RefreshToken을 삭제할 때 사용된다.
-
+<br></br>
 
 
 #### 경우의 수
@@ -147,7 +148,7 @@
 3. RefreshToken이 삭제된 상태에서 AccessToken이 만료되지 않았을 때(로그아웃 후 기한이 남이있는 AccessToken으로 로그인 시도)
 
 * DB에 저장되어있는 BlackList와 비교를 통해 걸러지게 된다.(로그인 거부)
-
+<br></br>
 
 
 #### 질문
