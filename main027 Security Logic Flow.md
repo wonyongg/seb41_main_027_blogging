@@ -23,7 +23,7 @@
 
 ***
 <br>
-
+<br>
 
 
 
@@ -73,7 +73,7 @@
 
 * 회원가입 완료
 <br>
-
+<br>
 
 
 
@@ -211,7 +211,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 * **RefreshToken**은 **Redis**에 따로 저장
 * 성공 시에 `getSuccessHandler` 호출
 <br>
-
+<br>
 
 
 
@@ -325,7 +325,7 @@ public class MemberAuthenticationFailureHandler implements AuthenticationFailure
 
 * 그 외 : ``` else ``` 이 외에 다른 에러는 권한 없음으로 처리.
 <br>
-
+<br>
 
 
 
@@ -431,7 +431,7 @@ private Map<String, Object> verifyJws(HttpServletRequest request) {
 * `shouldNotFilter`는 return 문이 true일 경우 해당 필터를 수행하지 않고 다음 필터로 넘어가게 하는 역할을 함
 * 검증 작업에서는 요청 헤더에 **AccessToken**이 없거나(== null), **RefreshToken**이 들어온 경우(Bearer로 시작하지 않는 Token) true가 되어 `JwtVerificationFilter`가 수행되지 않음
 <br>
-
+<br>
 
 
 
@@ -517,6 +517,7 @@ catch (TokenException e) {
 ```
 
 * **RefreshToken**이 null이거나, uri가 "/reissue"가 아니거나, 메서드 요청이 POST가 아니라면 필터를 수행하지 않고 다음 필터로 넘어감
+<br>
 <br>
 
 
