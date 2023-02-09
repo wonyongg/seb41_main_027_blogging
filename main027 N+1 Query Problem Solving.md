@@ -201,7 +201,7 @@ Page<Place> findAllLikeCount(Pageable pageable);
 
 
 
-![카테시안곱 문제](/img/cartesian problem.png)
+![카테시안곱 문제](/img/Cartesian problem.png)
 
  프론트엔드 분께 다급히 연락이 왔다. 문제는 장소에 좋아요를 누를 때 장소마다 다르지만 좋아요를 누른 횟수 x4, x3으로 반영이 된다는 것이다. 이게 무슨 생뚱맞은 소리야..하고 확인해보니 정말이었다. 두레생협이라는 가게는 원래라면 좋아요가 11이어야 했지만 그 4배인 44가 되어있었다.
 
