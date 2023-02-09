@@ -146,7 +146,7 @@ private Set<Bookmark> bookmarkList = new HashSet<>();
 
 
 
-![batchSize](/img/batchsize.png)
+![BatchSize](/img/Batchsize.png)
 
 * 생각대로 쿼리가 나가지 않았다.(초기 쿼리 이외에 추가적으로 하나의 쿼리가 나가 총 4개의 쿼리가 나가야 한다.)
   * (추가) 프로젝트 당시에는 왜 이렇게 쿼리가 나가는지 이해하지 못 했지만 글을 정리하면서 다시 읽어보니, `처음 요청 쿼리 1` + `category` + `placeLikeUserList` + `bookmarkList`로 총 4개의 쿼리가 나가야 하지만 초기쿼리 1 + 3*3 = 9, 총 10개의 쿼리가 나간 것이었다. 카테시안의 곱과 연관이 있어보인다.
@@ -165,7 +165,7 @@ private Set<Bookmark> bookmarkList = new HashSet<>();
 
 
 
-![default batch size](/img/default batch size.png)
+![default batch size](/img/default-batch-size.png)
 
 * 이번애는 `category` 필드는 사라졌지만 나머지는 3번씩 나갔다. 도저히 이해가 가지 않아 일단 멈추었다. 원인을 찾아보고 싶었지만 시간이 촉박했기 때문에 @EntityGraph를 사용해보기로 했다.
 
