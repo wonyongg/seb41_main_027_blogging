@@ -121,23 +121,23 @@
 
 1. 클라이언트는 로그인을 통해 AccessToken과 RefreshToken을 발급받는다.
 2. 접근 권한이 필요한 요청에는 요청 헤더(Request Header)에 AccessToken만 담아 보낸다.
- * 서버에서는 AccessToken을 검증하고 요청 수행 후 응답을 보냄
+:  서버에서는 AccessToken을 검증하고 요청 수행 후 응답을 보냄
 3. AccessToken을 재발급받을 때는 RefreshToken만 요청 헤더에 담아 보낸다.
 4. 로그아웃을 할 때는 AccessToken과 RefreshToken을 둘 다 요청 헤더에 담아 보낸다.
- * 요청 헤더의 AccessToken은 BlackList에 넣는 용도로, RefreshToken은 redis에 저장된 RefreshToken을 삭제할 때 사용된다.
+:  요청 헤더의 AccessToken은 BlackList에 넣는 용도로, RefreshToken은 redis에 저장된 RefreshToken을 삭제할 때 사용된다.
 <br></br>
 
 
 #### 경우의 수
 
 1. AccessToken이 만료되고 RefreshToken이 만료되지 않았을 때
- * RefreshToken으로 AccessToken을 재발급받는다.
+:  RefreshToken으로 AccessToken을 재발급받는다.
 
 2. AccessToken, RefreshToken이 모두 만료되었을 때
- * 재로그인을 통해 둘 다 재발급받는다.
+:  재로그인을 통해 둘 다 재발급받는다.
 
 3. RefreshToken이 삭제된 상태에서 AccessToken이 만료되지 않았을 때(로그아웃 후 기한이 남이있는 AccessToken으로 로그인 시도)
- * DB에 저장되어있는 BlackList와 비교를 통해 걸러지게 된다.(로그인 거부)
+:  DB에 저장되어있는 BlackList와 비교를 통해 걸러지게 된다.(로그인 거부)
 <br></br>
 
 
