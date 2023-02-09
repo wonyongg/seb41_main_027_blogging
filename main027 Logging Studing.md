@@ -8,7 +8,7 @@
   * 프로젝트 중 인원에 공백이 생겨 자리를 메워야 하는 상황이 발생했을 때, 프로젝트가 끝나고 타 팀원이 제 코드를 공부할 때 도움을 주기 위한 목적입니다.
 * 이 글에서는 main027(에코그린 서울) 팀에서 타 팀원이 프로젝트에 적용한 Logging을 분석하는 내용이 주를 이룹니다.
 * 학습을 하면서 든 개인적인 생각 등도 함께 적혀있습니다.
-
+<br></br>
 
 
 ## 목차
@@ -17,8 +17,8 @@
 2. [AOP 관련 코드 분석](#aop-관련-코드-분석)
 3. [Logging 회고](#logging-회고)
 ***
-
-
+<br></br>
+<br></br>
 
 
 
@@ -27,7 +27,7 @@
 ### AOP(Aspect Oriented Programming)란?
 
  AOP는 관점 지향 프로그래밍이라고 불린다. 관점 지향 프로그래밍은 어떤 로직을 핵심 기능과 부가 기능으로 나누고 그걸 기준으로 각각 모듈화한다. main027에서 **핵심 기능**은 핵심 비즈니스 로직을 생각하면 된다. **부가 기능**은 비즈니스 로직을 수행하는 데 필요한 로깅, 보안, 트랜잭션 등 공통적으로 적용하는 기능을 뜻한다.
-
+<br></br>
 
 
 ### 우리는 왜 로깅을 적용했나?
@@ -35,7 +35,8 @@
  로깅의 중요성은 백 번 강조해도 모자라다. 로그를 남기는 건 백엔드 개발자에게 굉장히 중요하다고 배웠다. 이유는 간단하다. 비즈니스 로직이 돌아가는 것을 기록으로 남김으로써 이후의 유지보수, 에러 수정 작업 등에 시간을 단축시키고, 성능 개선 작업에 있어 효율적이면서 올바른 선택을 할 수 있도록 도와주기 때문이다. 
 
  백엔드팀은 기본 기능 구현이 끝나고 성능 최적화를 통해 프로젝트의 완성도를 높이고자 했다. 성능 최적화를 모든 로직에 적용하면 좋겠지만 시간 관계상 그건 불가능했다. 따라서 로깅을 통해 API 요청 비율과 API 응답 속도를 남겨 이를 활용하여 우선적으로 적용할 메서드를 찾으려고 했다. 백엔드 팀원 중에 AOP를 이용하여 로깅을 남겨 본 경험이 없어 시간 관계상 한 명이 학습 후 구현을 하고 이후에 스터디를 통해 학습 및 프로젝트에 적용한 내용을 공유하는 식으로 진행했다.
-
+<br></br>
+<br></br>
 
 
 
@@ -62,10 +63,7 @@ public @interface TimeTrace {
 - `int millis() default 50`: `TimeTraceAspect` 클래스의 `doLogTime` 메서드에서 사용.
   - 메서드 소요시간이 defalut로 설정된 50보다 길면 log.warn을 띄움
   - `@TimeTrace(millis = 100)` 이런 식으로 메서드마다 설정 시간을 바꿀 수도 있음
-
-
-
-
+<br></br>
 
 
 #### TimeTraceAspect 클래스
@@ -126,7 +124,7 @@ public class TimeTraceAspect {
 * 빈 후처리기는 어떤 클래스를(Pointcut을 이용) 어떻게 조작할 지를(Advice를 이용) 확인하고 변경하여, 스프링 빈 컨테이너에 프록시 객체를 등록한다.
   * 빈 후처리기는 빈에 실제 객체 대신 사용자가 의도적으로 변경한 프록시 객체(가짜 객체)를 등록한다.
   * main027에서는 빈에 저장될 프록시 객체에 로깅을 입힌다고 이해하면 될 것 같다.
-
+<br></br>
 
 
 
@@ -198,7 +196,7 @@ private void doLogTime(String arrow, String uri, String name, long lastStopWatch
 * `doLogTime` 메서드를 이용하여 로깅한다.
   * `doLogTime("-->", uri, name, dataHolder.getLastTaskTimeMillis(), millis, limitMillis);`
   * `doLogTime("<--", uri, name, dataHolder.getLastTaskTimeMillis(), millis, limitMillis);`
-
+<br></br>
 
 
 
@@ -306,7 +304,7 @@ public void deletePlace(Long memberId, List<String> roles, Long placeId) {
 
 * `uri`: 어떤 uri인지 데이터 수집(api 요청 비율 데이터 수집에 사용됨)
 * `method`: 어떤 method인지 데이터 수집
-
+<br></br>
 
 
 
@@ -334,7 +332,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 * `jwtTokenizer`와 `dataholder`를 파라미터로 받는 `DataInterceptor` 객체를 생성하고 모든 uri에 인터셉터를 적용한다.
 
 * `.order(1)`은 해당 인터셉터를 첫번째 인터셉터로 등록하겠다는 의미로 추후에 여러 개의 인터셉터를 등록하게 될 때 번호를 매겨 순를 조정할 수 있다.
-
+<br></br>
 
 
 
@@ -377,7 +375,8 @@ public class DataInterceptor implements HandlerInterceptor {
   * `try` 요청에서 claims를 추출하여 dataHolder에 claims로부터 추출한 memberId와 roles를 저장하고 "로그인 된 사용자 요청"이라고 로그를 찍고 넘어간다.
     * `catch` 만약 검증되지 않은 사용자라면 에러가 터지며 "로그인 되지 않은 사용자 요청"이라고 로그를 찍고 넘어간다.
       * but, 이미 필터단에서 vrifyjws가 있어 검증이 될 예정이라 의미없는 로직이긴 하다.
-
+<br></br>
+<br></br>
 
 
 ### `getPlaces` 메서드를 수행 했을 때 찍히는 로그 흐름 정리
@@ -402,7 +401,8 @@ m.server.global.aop.logging.DataHolder   : END [/places] [GET] [336]ms
 * DispatcherServlet에서 컨트롤러단으로 넘어가기 전에 DataInterceptor에서 로그인 된 사용자인지 아닌지를 로그에 남김
 * TimeTraceAspect에서 API 요청, 응답 시간을 메서드 별로 로깅
 * StopWatch가 끝나기 전에 END 로그 남기고 destroy
-
+<br></br>
+<br></br>
 
 
 
