@@ -146,7 +146,7 @@ private Set<Bookmark> bookmarkList = new HashSet<>();
 
 
 
-![BatchSize 카테시안 곱](/img/BatchSize.png)
+![BatchSize](/img/Batchsize.png)
 
 * 생각대로 쿼리가 나가지 않았다.(초기 쿼리 이외에 추가적으로 하나의 쿼리가 나가 총 4개의 쿼리가 나가야 한다.)
   * (추가) 프로젝트 당시에는 왜 이렇게 쿼리가 나가는지 이해하지 못 했지만 글을 정리하면서 다시 읽어보니, `처음 요청 쿼리 1` + `category` + `placeLikeUserList` + `bookmarkList`로 총 4개의 쿼리가 나가야 하지만 초기쿼리 1 + 3*3 = 9, 총 10개의 쿼리가 나간 것이었다. 카테시안의 곱과 연관이 있어보인다.
@@ -165,7 +165,7 @@ private Set<Bookmark> bookmarkList = new HashSet<>();
 
 
 
-![default batch size](/img/default batch size.png)
+![default batch size](/img/Default batch size.png)
 
 * 이번애는 `category` 필드는 사라졌지만 나머지는 3번씩 나갔다. 도저히 이해가 가지 않아 일단 멈추었다. 원인을 찾아보고 싶었지만 시간이 촉박했기 때문에 @EntityGraph를 사용해보기로 했다.
 
@@ -201,7 +201,7 @@ Page<Place> findAllLikeCount(Pageable pageable);
 
 
 
-![카테시안곱 문제](/img/cartesian problem.png)
+![카테시안곱 문제](/img/Cartesian problem.png)
 
  프론트엔드 분께 다급히 연락이 왔다. 문제는 장소에 좋아요를 누를 때 장소마다 다르지만 좋아요를 누른 횟수 x4, x3으로 반영이 된다는 것이다. 이게 무슨 생뚱맞은 소리야..하고 확인해보니 정말이었다. 두레생협이라는 가게는 원래라면 좋아요가 11이어야 했지만 그 4배인 44가 되어있었다.
 
