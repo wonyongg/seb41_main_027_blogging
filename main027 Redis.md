@@ -120,12 +120,12 @@
 ### 흐름
 
 1. 클라이언트는 로그인을 통해 AccessToken과 RefreshToken을 발급받는다.
-2. 
-3. 접근 권한이 필요한 요청에는 요청 헤더(Request Header)에 AccessToken만 담아 보낸다.
+
+2. 접근 권한이 필요한 요청에는 요청 헤더(Request Header)에 AccessToken만 담아 보낸다.
  * 서버에서는 AccessToken을 검증하고 요청 수행 후 응답을 보냄
-4. AccessToken을 재발급받을 때는 RefreshToken만 요청 헤더에 담아 보낸다.
-5. 
-6. 로그아웃을 할 때는 AccessToken과 RefreshToken을 둘 다 요청 헤더에 담아 보낸다.
+3. AccessToken을 재발급받을 때는 RefreshToken만 요청 헤더에 담아 보낸다.
+ 
+4. 로그아웃을 할 때는 AccessToken과 RefreshToken을 둘 다 요청 헤더에 담아 보낸다.
  * 요청 헤더의 AccessToken은 BlackList에 넣는 용도로, RefreshToken은 redis에 저장된 RefreshToken을 삭제할 때 사용된다.
 <br></br>
 
