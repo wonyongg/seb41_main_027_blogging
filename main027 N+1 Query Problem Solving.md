@@ -186,9 +186,9 @@ Page<Place> findAllLikeCount(Pageable pageable);
   * BatchSize의 문제를 해결하지 못한 이유도 있었지만, 네트워크 트래픽 비용을 줄이는 것을 최우선의 과제로 삼았기 때문에 초기 쿼리 하나만 나가게 만들고 싶었다.
 
 
-
+***
 **Hibernate: select place0_.place_id as place_id1_5_0_, bookmarkli2_.bookmark_id as bookmark1_0_1_, placelikeu3_.place_liker_user_id as place_li1_6_2_, category4_.category_id as category1_1_3_, place0_.created_at as created_2_5_0_, place0_.modified_at as modified3_5_0_, place0_.address as address4_5_0_, place0_.category_id as categor10_5_0_, place0_.description as descript5_5_0_, place0_.kakao_id as kakao_id6_5_0_, place0_.latitude as latitude7_5_0_, place0_.longitude as longitud8_5_0_, place0_.member_id as member_11_5_0_, place0_.name as name9_5_0_, bookmarkli2_.member_id as member_i2_0_1_, bookmarkli2_.place_id as place_id3_0_1_, bookmarkli2_.place_id as place_id3_0_0__, bookmarkli2_.bookmark_id as bookmark1_0_0__, placelikeu3_.member_id as member_i2_6_2_, placelikeu3_.place_id as place_id3_6_2_, placelikeu3_.place_id as place_id3_6_1__, placelikeu3_.place_liker_user_id as place_li1_6_1__, category4_.name as name2_1_3_ from place place0_ left outer join bookmark bookmarkli2_ on place0_.place_id=bookmarkli2_.place_id left outer join place_like_user placelikeu3_ on place0_.place_id=placelikeu3_.place_id left outer join category category4_ on place0_.category_id=category4_.category_id order by (select count(placelikeu1_.place_id) from place_like_user placelikeu1_ where place0_.place_id=placelikeu1_.place_id) desc**
-
+***
 * 쿼리가 하나로 줄어들었다.
 * `@BatchSize`보다 확실히 쿼리의 양이 줄었지만 매우 긴 쿼리 하나로 줄어들었기 때문에 가독성이 매우 떨어졌고 둘 중에 무엇이 나은지 판단할 수 없었다.
 * 그러나, DB에서 조회하는 속도를 줄이는 것보다 무의미한 네트워크 트래픽 비용을 줄이는 것을 최우선으로 두었기 때문에 팀원들과 회의를 통해 `@EntityGraph`를 사용하기로 결정했다.
