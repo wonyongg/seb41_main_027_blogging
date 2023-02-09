@@ -80,23 +80,20 @@
 ## Main027에서 Redis가 하는 일
 
 1. 로그인 시 생성되는 RefreshToken을 저장하는 DB 역할을 한다.
-
-* Redis에 RefreshToken을 저장하면 만료 기한도 함께 저장이 되는데 기한이 만료되면 자동 삭제된다.
-  * Redis에 expiration 기한이 되면 자동 삭제되는 기능이 있음을 테스트로 확인했다. 
+ * Redis에 RefreshToken을 저장하면 만료 기한도 함께 저장이 되는데 기한이 만료되면 자동 삭제된다.
+   * Redis에 expiration 기한이 되면 자동 삭제되는 기능이 있음을 테스트로 확인했다. 
 
 
 2. 로그아웃 후에 만료 기한이 남아있는 AccessToken을 저장하여 재로그인을 못 하게 막는 역할을 한다.
-
-* 로그아웃을 하게 되면 요청으로 받은 AccessToken을 이용해 DB의 RefreshToken을 삭제하고, AccessToken을 blackList라는 이름으로 대신 넣는다.
-  * 이는 RefreshToken이 DB에서 삭제되는 시점에 AccessToken의 기한이 남아있다면 재로그인이 가능하기 때문에 BlackList에 저장해두었다가 로그아웃된 AccessToken이 요청으로 들어오면 BlackList의 AccessToken과 비교 후에 로그인을 거부하기 위한 것이다
+ * 로그아웃을 하게 되면 요청으로 받은 AccessToken을 이용해 DB의 RefreshToken을 삭제하고, AccessToken을 blackList라는 이름으로 대신 넣는다.
+   * 이는 RefreshToken이 DB에서 삭제되는 시점에 AccessToken의 기한이 남아있다면 재로그인이 가능하기 때문에 BlackList에 저장해두었다가 로그아웃된 AccessToken이 요청으로 들어오면 BlackList의 AccessToken과 비교 후에 로그인을 거부하기 위한 것이다
 
 3. 캐시 서버 역할을 한다.
-
-* api 요청이 많은 일부 메서드를 선정해 캐시 서버에 저장하여 응답 속도를 높였다.
-* Grafana를 통해 확인한 api 사용량을 토대로 캐시 서버를 활용할 메서드를 선정했다. 캐시 서버를 활용할 메서드는 다음과 같다.
-  * ReviewController - getReviews
-  * PlaceController - getplace
-  * PlaceController - getPlaces
+ * api 요청이 많은 일부 메서드를 선정해 캐시 서버에 저장하여 응답 속도를 높였다.
+ * Grafana를 통해 확인한 api 사용량을 토대로 캐시 서버를 활용할 메서드를 선정했다. 캐시 서버를 활용할 메서드는 다음과 같다.
+   * ReviewController - getReviews
+   * PlaceController - getplace
+   * PlaceController - getPlaces
 <br></br>
 <br></br>
 
@@ -124,30 +121,23 @@
 
 1. 클라이언트는 로그인을 통해 AccessToken과 RefreshToken을 발급받는다.
 2. 접근 권한이 필요한 요청에는 요청 헤더(Request Header)에 AccessToken만 담아 보낸다.
-
-* 서버에서는 AccessToken을 검증하고 요청 수행 후 응답을 보냄
-
+ * 서버에서는 AccessToken을 검증하고 요청 수행 후 응답을 보냄
 3. AccessToken을 재발급받을 때는 RefreshToken만 요청 헤더에 담아 보낸다.
-
 4. 로그아웃을 할 때는 AccessToken과 RefreshToken을 둘 다 요청 헤더에 담아 보낸다.
-
-* 요청 헤더의 AccessToken은 BlackList에 넣는 용도로, RefreshToken은 redis에 저장된 RefreshToken을 삭제할 때 사용된다.
+ * 요청 헤더의 AccessToken은 BlackList에 넣는 용도로, RefreshToken은 redis에 저장된 RefreshToken을 삭제할 때 사용된다.
 <br></br>
 
 
 #### 경우의 수
 
 1. AccessToken이 만료되고 RefreshToken이 만료되지 않았을 때
-
-* RefreshToken으로 AccessToken을 재발급받는다.
+ * RefreshToken으로 AccessToken을 재발급받는다.
 
 2. AccessToken, RefreshToken이 모두 만료되었을 때
-
-* 재로그인을 통해 둘 다 재발급받는다.
+ * 재로그인을 통해 둘 다 재발급받는다.
 
 3. RefreshToken이 삭제된 상태에서 AccessToken이 만료되지 않았을 때(로그아웃 후 기한이 남이있는 AccessToken으로 로그인 시도)
-
-* DB에 저장되어있는 BlackList와 비교를 통해 걸러지게 된다.(로그인 거부)
+ * DB에 저장되어있는 BlackList와 비교를 통해 걸러지게 된다.(로그인 거부)
 <br></br>
 
 
@@ -155,7 +145,7 @@
 
 1. 요청마다 헤더에 AccessToken이 포함되는지 RefreshToken이 포함되는지 헷갈리니 그냥 모든 요청에 AccessToken과 RefreshToken을 다 보내면 안되나?
 
-* 모든 요청에 RefreshToken을 보내면 Redis를 쓸 필요가 없다.(DB에서 토큰을 관리할 필요가 없다) 대신 RefreshToken을 매번 클라이언트에게 받아서 필요할 때 AccessToken을 재발급하게 된다. 이는 DB를 사용하지 않기 때문에 성능이 향상되는 장점이 있지만, RefreshToken이 외부에 지속적으로 노출이 되기 때문에 보안에 매우 치명적이다. 다르게 이야기하면 성능을 위해 보안을 포기한 것과 같기 때문에 권장하지 않는다.
+ * 모든 요청에 RefreshToken을 보내면 Redis를 쓸 필요가 없다.(DB에서 토큰을 관리할 필요가 없다) 대신 RefreshToken을 매번 클라이언트에게 받아서 필요할 때 AccessToken을 재발급하게 된다. 이는 DB를 사용하지 않기 때문에 성능이 향상되는 장점이 있지만, RefreshToken이 외부에 지속적으로 노출이 되기 때문에 보안에 매우 치명적이다. 다르게 이야기하면 성능을 위해 보안을 포기한 것과 같기 때문에 권장하지 않는다.
 <br></br>
 <br></br>
 
