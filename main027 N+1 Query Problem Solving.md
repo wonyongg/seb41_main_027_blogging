@@ -28,8 +28,7 @@
 
 ## N+1 문제 발견
 
-![문제 발견](/img/문제 발견.png)
-
+![문제 발견](/img/issue.png)
  팀원과 함께 장소 검색(searchPlace) 메서드를 만들고 있었다. 우리가 구현하고자 한 장소 검색 메서드는 사용자가 keyword를 입력하면 DB에서 사용자가 입력한 String 값이 포함된 장소명을 모두 불러오는 것이었다. 그러나 단순히 JPA를 이용해서는 검색 조건이 포함된 쿼리를 만들 수 없었다. DB에서 필요한 데이터만을 불러오려면 SQL을 사용하여 직접 검색 조건문을 넣어줘야 했다. 우리는 JPQL을 사용하여 검색 조건문을 추가하고 쿼리가 날아가는 것을 직접 보기 위해 `application.yml` 파일의 show-sql을 true로 바꾸었다. 성공적으로 메서드 구현이 끝나고 show-sql이 true인 상태를 유지한 채로 냅두었다. 이후에 api 요청 비율이 가장 높을 것이라고 예상된 장소 전체 조회 메서드 테스트를 진행하는데 이게 무슨일인가.. 쿼리가 말도안되게 많이 날아가는게 발견되었다. show-sql을 true로 설정하지 않았다면 놓칠 뻔했었다.
 
 
@@ -121,7 +120,6 @@ public class Place extends BaseTime implements Serializable {
 ### BatchSize 사용
 
 ![MultipleBagFetchException](/img/MultipleBagFetchException.png)
-
 * `Caused by: org.hibernate.loader.MultipleBagFetchException` 에러가 발생했다.
 
 * 인터넷에 검색해보니 OneToMany로 매핑되어있는 테이블이 두 개 이상있기 때문이었다. 
@@ -203,7 +201,7 @@ Page<Place> findAllLikeCount(Pageable pageable);
 
 
 
-![카테시안곱 문제](/img/카테시안곱 문제.png)
+![카테시안곱 문제](/img/cartesian problem.png)
 
  프론트엔드 분께 다급히 연락이 왔다. 문제는 장소에 좋아요를 누를 때 장소마다 다르지만 좋아요를 누른 횟수 x4, x3으로 반영이 된다는 것이다. 이게 무슨 생뚱맞은 소리야..하고 확인해보니 정말이었다. 두레생협이라는 가게는 원래라면 좋아요가 11이어야 했지만 그 4배인 44가 되어있었다.
 
