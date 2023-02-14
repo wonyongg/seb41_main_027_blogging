@@ -1,6 +1,6 @@
 # MAIN 027 프로젝트 블로깅
 
-https://github.com/wonyongg/seb41_main_027 <br>
+프로젝트 링크 : https://github.com/wonyongg/seb41_main_027 <br>
 ***
 ## 들어가기 전에
 
