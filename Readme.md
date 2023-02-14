@@ -11,6 +11,20 @@
  저희 백엔드팀은 이번 메인 프로젝트를 통해 어려운 기능을 구현하는 것보다 설계부터 배포 후 유지보수까지 이어지는 개발 프로세스의 전반적인 내용을 완벽하게 만드는 것에 집중했습니다. 백엔드 엔지니어에게 중요한 것은 성능 최적화로부터 이어지는 안정적인 서버 운영과 객체 지향 코드 설계로 높은 유지 보수성을 이끌어내는 것이라고 생각하고 있기 때문입니다.
 <br></br>
 
+## 프로젝트 요약
+* AWS 아키텍처 설계
+&nbsp;&nbsp;-> VPC, 서브넷을 기반으로 AWS 리소스를 어떻게 배치할지에 대해 고려하여 설계
+* CI/CD 파이프라인 설계 및 구현
+&nbsp;&nbsp;-> Github Actions를 통해 배포 자동화 구현하고 배포 시간을 단축
+* Spring MVC 기반의 CRUD 기능을 수행하는 서버 구현
+* 유지보수의 효율성을 높히기 위한 로그의 시각화
+&nbsp;&nbsp;-> Spring AOP, AWS CloudWatch와 Grafana를 이용한 실시간 로깅 및 트래킹 구현, 각 API 요청 시 단계별 소요 시간 파악 가능
+* 성능 최적화
+&nbsp;&nbsp;-> 구현한 APM를 통해 슬로우쿼리를 찾아보고, N+1 식별 및 최적화
+&nbsp;&nbsp;-> DB 트래픽을 낮추기 위해 Redis 캐시 서버 적용
+* 코드 품질 향상에 대한 노력
+&nbsp;&nbsp;-> 팀원 간의 코드 스타일을 병합하고, 프로젝트의 의미있는 테스트 커버리지들을 높히기 위해 Sonarqube 도입
+
 ## 목차
 * [Logging Studing](https://github.com/wonyongg/seb41_main_027_blogging/blob/main/main027%20Logging%20Studing.md)
 * [N+1 Query Problem Solving](https://github.com/wonyongg/seb41_main_027_blogging/blob/main/main027%20N%2B1%20Query%20Problem%20Solving.md)
