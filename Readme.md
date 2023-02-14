@@ -17,7 +17,7 @@
 * CI/CD 파이프라인 설계 및 구현 <br>
 &nbsp;&nbsp;-> Github Actions를 통해 배포 자동화 구현하고 배포 시간을 단축
 * Spring MVC 기반의 CRUD 기능을 수행하는 서버 구현 
-* 유지보수의 효율성을 높히기 위한 로그의 시각화
+* 유지보수의 효율성을 높히기 위한 로그의 시각화 <br>
 &nbsp;&nbsp;-> Spring AOP, AWS CloudWatch와 Grafana를 이용한 실시간 로깅 및 트래킹 구현, 각 API 요청 시 단계별 소요 시간 파악 가능
 * 성능 최적화 <br>
 &nbsp;&nbsp;-> 구현한 APM를 통해 슬로우쿼리를 찾아보고, N+1 식별 및 최적화
