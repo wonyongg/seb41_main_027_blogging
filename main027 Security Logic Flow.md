@@ -123,7 +123,7 @@
       ...
   ```
   
-  * **AuthenticationManager** `MemberDetailsService`에게 사용자의 `MemberDetails` 생성을 위임
+  * **AuthenticationManager**가 `MemberDetailsService`에게 사용자의 `MemberDetails` 생성을 위임
   * `MemberDetailsService`가 사용자의 Credential을 DB에서 조회
     * 만약, db에 사용자의 Credential이 없다면 `UNREGISTERED_MEMBER` 에러를 던짐(아래 실패 시 핸들러 처리에서 재설명)
   
