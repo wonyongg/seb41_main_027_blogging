@@ -28,7 +28,7 @@
 &nbsp;&nbsp;-> 팀원 간의 코드 스타일을 병합하고, 프로젝트의 의미있는 테스트 커버리지들을 높히기 위해 Sonarqube 도입 -->
 
 ## 목차
-* [Logging Studing](https://github.com/wonyongg/seb41_main_027_blogging/blob/main/main027%20Logging%20Studing.md)
+* [Logging Studying](https://github.com/wonyongg/seb41_main_027_blogging/blob/main/main027%20Logging%20Studying.md)
 * [N+1 Query Problem Solving](https://github.com/wonyongg/seb41_main_027_blogging/blob/main/main027%20N%2B1%20Query%20Problem%20Solving.md)
 * [Redis](https://github.com/wonyongg/seb41_main_027_blogging/blob/main/main027%20Redis.md)
 * [Security Logic Flow](https://github.com/wonyongg/seb41_main_027_blogging/blob/main/main027%20Security%20Logic%20Flow.md)
